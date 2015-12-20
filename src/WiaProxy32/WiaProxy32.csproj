@@ -1,7 +1,8 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{446DDC4A-1CC8-4F55-BDF2-21BB387574D1}</ProjectGuid>
@@ -20,15 +21,10 @@
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <OutputType>Exe</OutputType>
-    <AssemblyName>WiaProxy32</AssemblyName>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <WarningLevel>4</WarningLevel>
-    <RootNamespace>WiaProxy32</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -43,19 +39,14 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <OutputType>Exe</OutputType>
-    <AssemblyName>WiaProxy32</AssemblyName>
     <DebugSymbols>true</DebugSymbols>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <WarningLevel>4</WarningLevel>
-    <RootNamespace>WiaProxy32</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Interop.WIA, Version=1.0.0.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System" />
+    <Reference Include="Interop.WIA">
       <HintPath>..\Interop.WIA\Interop.WIA.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WiaProxy32.cs" />
@@ -80,7 +71,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>@rem Embed manifest
+    <PostBuildEvent Condition=" '$(OS)' == 'Windows_NT' ">@rem Embed manifest
 call "$(SolutionDir)Manifests\embedManifest.bat" "$(TargetPath)" "$(SolutionDir)Manifests\asInvoker.xml"
 call "$(SolutionDir)Manifests\embedManifest.bat" "$(ProjectDir)obj\$(PlatformName)\$(ConfigurationName)\$(TargetFileName)" "$(SolutionDir)Manifests\asInvoker.xml"
 

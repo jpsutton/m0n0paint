@@ -103,7 +103,7 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>@rem Embed manifest
+    <PostBuildEvent Condition=" '$(OS)' == 'Windows_NT' ">@rem Embed manifest
 call "$(SolutionDir)Manifests\embedManifest.bat" "$(TargetPath)" "$(SolutionDir)Manifests\requireAdministrator.xml"
 call "$(SolutionDir)Manifests\embedManifest.bat" "$(ProjectDir)obj\$(ConfigurationName)\$(TargetFileName)" "$(SolutionDir)Manifests\requireAdministrator.xml"
 
